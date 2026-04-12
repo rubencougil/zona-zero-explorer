@@ -690,7 +690,7 @@ mark {
   color: var(--text-dim);
 }
 
-.modal-body p { margin-bottom: 1.2rem; }
+.modal-body p { margin-bottom: 1.6rem; }
 .modal-body p:last-child { margin-bottom: 0; }
 
 .modal-body h4 {
@@ -865,8 +865,8 @@ mark {
     border-right: none;
   }
 
-  /* Cards: slightly larger thumb on mobile for easier tap */
-  .card-art { width: 80px; min-width: 80px; }
+  /* Cards: full-width image on mobile */
+  .card-art { width: 100%; aspect-ratio: 16 / 9; }
   .card-info { padding: 0.65rem 0.85rem; }
   .card-title { font-size: 0.88rem; }
   .card-subtitle { font-size: 0.7rem; }
@@ -1462,7 +1462,7 @@ main {
 }
 
 .modal-body p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.6rem;
 }
 
 .modal-body p:last-child { margin-bottom: 0; }
