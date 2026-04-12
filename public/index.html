@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- No indexing -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow" />
+
+  <!-- Primary meta -->
+  <title>Zona Zero — Archivo Musical</title>
+  <meta name="description" content="Archivo personal de reseñas de discos, crónicas de conciertos y entrevistas de Rubén Cougil Grande. Zona Zero · RockZone Magazine · 2006–2026." />
+  <meta name="author" content="Rubén Cougil Grande" />
+  <meta name="keywords" content="rock, metal, música, reseñas, crónicas, entrevistas, zona zero, rockzone" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Zona Zero — Archivo Musical" />
+  <meta property="og:description" content="Archivo personal de reseñas, crónicas y entrevistas de Rubén Cougil Grande. 2006–2026." />
+  <meta property="og:locale" content="es_ES" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-wordmark">
+          <span class="logo-zona">ZONA</span><span class="logo-zero">ZERO</span>
+        </div>
+        <div class="logo-meta">
+          <span class="logo-tagline">Archivo Musical</span>
+          <span class="logo-years">2006 – 2016</span>
+        </div>
+      </div>
+      <div class="search-area">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="text"
+          id="search"
+          placeholder="Buscar artista, disco, crónica…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="search-clear hidden" id="search-clear" aria-label="Limpiar búsqueda">✕</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ FILTER BAR ═══ -->
+  <nav class="filter-bar" aria-label="Filtrar por tipo">
+    <div class="filter-inner">
+      <button class="filter-btn active" data-type="all">
+        Todos <span class="badge" id="count-all">—</span>
+      </button>
+      <button class="filter-btn" data-type="reseña">
+        <span class="btn-dot dot-resena"></span>Reseñas
+        <span class="badge" id="count-reseña">—</span>
+      </button>
+      <button class="filter-btn" data-type="crónica">
+        <span class="btn-dot dot-cronica"></span>Crónicas
+        <span class="badge" id="count-crónica">—</span>
+      </button>
+      <button class="filter-btn" data-type="entrevista">
+        <span class="btn-dot dot-entrevista"></span>Entrevistas
+        <span class="badge" id="count-entrevista">—</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ RESULTS BAR ═══ -->
+  <div class="results-bar">
+    <div class="results-inner">
+      <span id="results-label" class="results-label"></span>
+    </div>
+  </div>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main>
+    <div class="articles-grid" id="articles-grid"></div>
+    <div class="no-results hidden" id="no-results">
+      <div class="no-results-inner">
+        <span class="no-results-icon">✦</span>
+        <p>No se encontraron resultados.</p>
+        <button onclick="document.getElementById('search').value=''; window.app && app.resetSearch()">Limpiar búsqueda</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-title">ZONA ZERO</p>
+      <p class="footer-sub">Reseñas · Crónicas · Entrevistas · 2006–2016</p>
+      <p class="footer-credit">Por Rubén Cougil Grande</p>
+    </div>
+  </footer>
+
+  <!-- ═══ ARTICLE MODAL ═══ -->
+  <div class="modal-overlay hidden" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close" aria-label="Cerrar artículo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="modal-content" id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
