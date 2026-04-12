@@ -290,22 +290,73 @@ main {
 .card.card-cronica:hover .card-title { color: var(--blue); }
 .card.card-entrevista:hover .card-title { color: var(--gold); }
 
-/* Card top: type badge */
-.card-meta {
+/* ─── Card cover art ─────────────────────────────── */
+.card-art {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.card-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder shown when no cover art / image fails */
+.card-art-placeholder {
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0.85rem 1.1rem 0.4rem 1.3rem;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.ph-resena    { background: var(--red-dim); }
+.ph-cronica   { background: var(--blue-dim); }
+.ph-entrevista{ background: var(--gold-dim); }
+
+.ph-initial {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  line-height: 1;
+  opacity: 0.5;
+}
+.ph-resena    .ph-initial { color: var(--red); }
+.ph-cronica   .ph-initial { color: var(--blue); }
+.ph-entrevista .ph-initial { color: var(--gold); }
+
+.ph-label {
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+/* ─── Card info area ─────────────────────────────── */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0.85rem 1.1rem 0 1.2rem;
 }
 
 .type-pill {
   font-family: var(--font-ui);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.15em;
-  padding: 0.25rem 0.65rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 2px;
   text-transform: uppercase;
+  align-self: flex-start;
+  margin-bottom: 0.65rem;
 }
 
 .type-pill.pill-resena {
@@ -324,19 +375,13 @@ main {
   border: 1px solid rgba(244,162,97,0.3);
 }
 
-/* Card body */
-.card-body {
-  padding: 0.3rem 1.1rem 0.8rem 1.3rem;
-  flex: 1;
-}
-
 .card-title {
   font-family: var(--font-ui);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1.25;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
   text-transform: uppercase;
   transition: color 0.18s;
 }
@@ -346,58 +391,42 @@ main {
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-style: italic;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.7rem;
   line-height: 1.3;
 }
 
 .card-excerpt {
-  color: #7a7a7a;
-  font-size: 0.82rem;
-  line-height: 1.6;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  line-height: 1.55;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  flex: 1;
 }
 
-/* Card footer */
+/* Card footer: pushed to bottom */
 .card-footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   border-top: 1px solid var(--border);
-  padding: 0.6rem 1.1rem 0.6rem 1.3rem;
+  margin-top: 0.85rem;
+  padding: 0.55rem 0;
 }
 
 .card-cta {
   font-family: var(--font-ui);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-faint);
   transition: color 0.18s;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
 }
 
 .card:hover .card-cta { color: var(--text-dim); }
-
-/* ─── Card cover art ─────────────────────────────── */
-.card-art {
-  width: 100%;
-  height: 160px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.card-art img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 
 /* ─── No Results ─────────────────────────────────── */
 .no-results {
