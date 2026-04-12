@@ -196,10 +196,21 @@ window.app = null;
     const tc = typeClass(article.type);
     const tl = typeLabel(article.type);
 
-    // Configure marked options
-    marked.setOptions({ breaks: true, gfm: true });
+    // Unwrap hard-wrapped lines: source files are wrapped at ~70 chars.
+    // Detect real paragraph breaks (sentence-ending punctuation followed by
+    // a new sentence), then join remaining mid-sentence wraps with a space.
+    function normalizeBody(text) {
+      const SEP = '\x00';
+      return text
+        .replace(/([.?!"])\n(\*{0,2}[A-ZÁÉÍÓÚÑÜ"(¡¿])/g, '$1' + SEP + '$2')
+        .replace(/\n/g, ' ')
+        .replace(/\x00/g, '\n\n')
+        .trim();
+    }
 
-    const bodyHtml = marked.parse(article.body);
+    marked.setOptions({ breaks: false, gfm: true });
+
+    const bodyHtml = marked.parse(normalizeBody(article.body));
     const shareUrl = `${location.origin}${location.pathname}#${article.slug}`;
     const initial = (article.title.replace(/[^A-Z0-9]/gi, '')[0] || '♦').toUpperCase();
 
