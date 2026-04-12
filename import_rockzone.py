@@ -195,10 +195,10 @@ def html_to_markdown(html_src):
     result = re.sub(r"\n{3,}", "\n\n", "\n".join(lines))
 
     # Cut at author signature and discard everything after (widgets, tags, JS…)
-    result = re.sub(r"\n+\*?\*?RUB[EÉ]N COUGIL.*", "", result, flags=re.I | re.S).strip()
+    result = re.sub(r"\n+\*{0,2}RUB[EÉ]N COUGIL.*", "", result, flags=re.I | re.S).strip()
 
-    # Remove leftover empty markdown links like [](url) or [_](url)
-    result = re.sub(r"\[[\s_]*\]\([^)]+\)", "", result)
+    # Remove leftover empty/ad markdown links like [](url), [_](url), [__](url)
+    result = re.sub(r"\[_*\]\([^)]+\)\s*", "", result)
 
     return result.strip()
 
