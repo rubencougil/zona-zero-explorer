@@ -44,13 +44,24 @@ window.app = null;
   function getFiltered() {
     const q = searchQuery;
     return articles.filter(a => {
-      const matchType = currentType === 'all' || a.type === currentType;
+      const matchType = currentType === 'all' || a.type === currentType ||
+        (currentType === 'rockzone' && a.source === 'rockzone');
       if (!matchType) return false;
       if (!q) return true;
       const haystack = (a.title + ' ' + a.subtitle + ' ' + a.excerpt).toLowerCase();
       // Support multi-word: all words must match
       return q.split(/\s+/).every(word => haystack.includes(word));
     });
+  }
+
+  // ── Sorting ───────────────────────────────────────────
+  function getSorted(filtered) {
+    if (currentType !== 'all' || searchQuery) return filtered;
+    // In "all" view: RockZone articles first (sorted by date desc), then the rest
+    const rz = filtered.filter(a => a.source === 'rockzone')
+      .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    const rest = filtered.filter(a => a.source !== 'rockzone');
+    return [...rz, ...rest];
   }
 
   // ── Rendering: counts ─────────────────────────────────
@@ -62,6 +73,8 @@ window.app = null;
       articles.filter(a => a.type === 'crónica').length;
     document.getElementById('count-entrevista').textContent =
       articles.filter(a => a.type === 'entrevista').length;
+    document.getElementById('count-rockzone').textContent =
+      articles.filter(a => a.source === 'rockzone').length;
   }
 
   // ── Rendering: results label ──────────────────────────
@@ -123,11 +136,16 @@ window.app = null;
     const titleH = highlight(article.title, searchQuery);
     const subtitleH = highlight(article.subtitle, searchQuery);
     const excerptH = highlight(article.excerpt, searchQuery);
+    const rzBadge = article.source === 'rockzone'
+      ? '<span class="rz-badge">RockZone</span>'
+      : '';
 
     return `<article class="card card-${tc}" data-slug="${escapeHtml(article.slug)}" tabindex="0" role="button" aria-label="Leer ${escapeHtml(article.title)}">
   ${coverArtHTML(article)}
   <div class="card-info">
-    <span class="type-pill pill-${tc}">${tl}</span>
+    <div class="card-pills">
+      <span class="type-pill pill-${tc}">${tl}</span>${rzBadge}
+    </div>
     <h2 class="card-title">${titleH}</h2>
     <p class="card-subtitle">${subtitleH}</p>
     <p class="card-excerpt">${excerptH}</p>
@@ -152,7 +170,7 @@ window.app = null;
     }
 
     noResults.classList.add('hidden');
-    grid.innerHTML = filtered.map(createCardHTML).join('\n');
+    grid.innerHTML = getSorted(filtered).map(createCardHTML).join('\n');
 
     grid.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', () => openModalBySlug(card.dataset.slug));

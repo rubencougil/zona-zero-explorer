@@ -211,6 +211,7 @@ a { color: inherit; }
 .dot-resena    { background: var(--red); }
 .dot-cronica   { background: var(--blue); }
 .dot-entrevista{ background: var(--gold); }
+.dot-rockzone  { background: #e8b4f0; }
 
 .badge {
   background: var(--border);
@@ -356,6 +357,14 @@ main {
   border-radius: 2px;
   text-transform: uppercase;
   align-self: flex-start;
+}
+
+/* Wrapper for type pill + optional RockZone badge */
+.card-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
   margin-bottom: 0.65rem;
 }
 
@@ -373,6 +382,20 @@ main {
   background: var(--gold-dim);
   color: var(--gold);
   border: 1px solid rgba(244,162,97,0.3);
+}
+
+/* RockZone badge */
+.rz-badge {
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+  background: rgba(232,180,240,0.15);
+  color: #e8b4f0;
+  border: 1px solid rgba(232,180,240,0.35);
 }
 
 .card-title {

@@ -174,7 +174,13 @@ def parse_file(path):
 
     slug = os.path.basename(path).replace(".md", "")
 
-    return {
+    # Detect RockZone articles by slug prefix; extract publication date
+    is_rockzone = slug.startswith("rz_")
+    pub_date = ""
+    if is_rockzone and re.match(r'^\d{4}-\d{2}-\d{2}$', subtitle.strip()):
+        pub_date = subtitle.strip()
+
+    result = {
         "slug": slug,
         "title": title,
         "subtitle": subtitle,
@@ -183,6 +189,11 @@ def parse_file(path):
         "excerpt": excerpt,
         "cover_url": embedded_cover,  # pre-filled if from import_rockzone; overridden in main() otherwise
     }
+    if is_rockzone:
+        result["source"] = "rockzone"
+    if pub_date:
+        result["date"] = pub_date
+    return result
 
 
 def main():
