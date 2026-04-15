@@ -161,6 +161,17 @@ def fetch_artist_photo(artist, cache):
     return photo
 
 
+def fetch_artist_photo_any(title, cache):
+    """Try each artist in a '+'-separated title, return first photo found."""
+    artists = [a.strip() for a in title.split("+")]
+    for artist in artists:
+        if artist:
+            photo = fetch_artist_photo(artist, cache)
+            if photo:
+                return photo
+    return ""
+
+
     m = re.match(r'"([^"]+)"', subtitle)
     return m.group(1) if m else ""
 
@@ -278,11 +289,14 @@ def main():
 
     # Fallback: for any article still without a cover, try Deezer artist photo
     without_cover = [a for a in articles if not a.get("cover_url")]
-    needs_deezer = [a for a in without_cover if not cover_cache.get(f"deezer|||{a['title']}".lower())]
+    needs_deezer = [a for a in without_cover if not any(
+        cover_cache.get(f"deezer|||{artist.strip()}".lower())
+        for artist in a["title"].split("+")
+    )]
     if needs_deezer:
         print(f"Fetching Deezer artist photos for {len(needs_deezer)} articles (cached: {len(without_cover) - len(needs_deezer)})…")
     for a in without_cover:
-        photo = fetch_artist_photo(a["title"], cover_cache)
+        photo = fetch_artist_photo_any(a["title"], cover_cache)
         if photo:
             a["cover_url"] = photo
 
