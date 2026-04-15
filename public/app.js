@@ -220,7 +220,11 @@ window.app = null;
     function normalizeBody(text) {
       const SEP = '\x00';
       return text
-        .replace(/([.?!"])\n(\*{0,2}[A-ZÁÉÍÓÚÑÜ"(¡¿])/g, '$1' + SEP + '$2')
+        // Preserve existing double-newline paragraph breaks
+        .replace(/\n\n/g, SEP)
+        // Also detect paragraph breaks: punctuation (optionally followed by
+        // closing markdown markers like ** or _) then newline + new sentence
+        .replace(/([.?!"][*_]{0,3})\n(\*{0,2}[A-ZÁÉÍÓÚÑÜ"(¡¿])/g, '$1' + SEP + '$2')
         .replace(/\n/g, ' ')
         .replace(/\x00/g, '\n\n')
         .trim();

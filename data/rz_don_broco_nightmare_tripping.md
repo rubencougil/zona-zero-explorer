@@ -6,6 +6,7 @@ DON BROCO – ‘Nightmare Tripping’
 <!-- source: https://www.rockzonemag.com/don-broco-nightmare-tripping-critica-nuevo-disco-review/ -->
 
 **El cuarteto de alt-rock más ecléctico y camaleónico del Reino Unido regresa con su quinto álbum, _Nightmare Tripping_, posiblemente el disco más heavy y oscuro de toda su carrera.**
+
 Este esperadísimo trabajo de [**Don Broco**](https://www.rockzonemag.com/tag/don-broco/) toma el relevo del notable _Amazing Things_ (2021) y marca además su debut en Fearless Records – hogar de grupos como Beartooth, I Prevail, Ice Nine Kills o Pierce The Veil-, en un ambicioso intento por ampliar su radio de acción y conectar con el público norteamericano.
 
 Y lo hacen sin comprometerse con nadie: fieles a su identidad y ajenos a cualquier tendencia pasajera. Una amalgama de rock, metal, pop, electrónica, funk y su innegable talento para construir canciones memorables son las herramientas de las que echan mano para adentrarse, esta vez, en terrenos más sombríos y emocionalmente complejos, con letras introspectivas que reflejan una etapa difícil, marcada por momentos delicados. Pero que nadie se equivoque: lejos de resultar un disco denso o tedioso, es justo lo contrario. De manera casi paradójica, toda esa carga se transforma en un despliegue de _groove_ contagioso, un ritmo vibrante y algunos de los estribillos más pegadizos de toda su discografía.

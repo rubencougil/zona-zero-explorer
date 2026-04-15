@@ -633,7 +633,7 @@ main {
 }
 
 .modal-body p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 .modal-body p:last-child { margin-bottom: 0; }
 
@@ -794,7 +794,7 @@ main {
   .modal-cover, .modal-cover-placeholder { height: 170px; }
   .modal-header { padding: 1.25rem 1.1rem 1rem; }
   .modal-body { padding: 1.25rem 1.1rem 1.75rem; font-size: 1rem; line-height: 1.8; }
-  .modal-body p { margin-bottom: 1.25rem; }
+  .modal-body p { margin-bottom: 1.6rem; }
   .modal-share { padding: 0.75rem 1.1rem; flex-wrap: wrap; }
   .modal-share-url { min-width: 0; width: 100%; }
 }

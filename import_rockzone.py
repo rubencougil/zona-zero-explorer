@@ -181,8 +181,9 @@ def html_to_markdown(html_src):
     html_src = re.sub(r"<i[^>]*>(.*?)</i>",            r"_\1_",   html_src, flags=re.S)
     html_src = re.sub(r'<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>', r"[\2](\1)", html_src, flags=re.S)
 
-    # Paragraphs
-    html_src = re.sub(r"<p[^>]*>(.*?)</p>", lambda m: f"\n{m.group(1).strip()}\n", html_src, flags=re.S)
+    # Paragraphs and line breaks
+    html_src = re.sub(r"<br\s*/?>", "\n\n", html_src)
+    html_src = re.sub(r"<p[^>]*>(.*?)</p>", lambda m: f"\n\n{m.group(1).strip()}\n\n", html_src, flags=re.S)
 
     # Strip remaining tags
     html_src = re.sub(r"<[^>]+>", "", html_src)
