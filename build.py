@@ -15,6 +15,52 @@ COVER_CACHE_FILE = "cover_cache.json"
 DATA_DIR = "data"
 OUTPUT = "public/data.json"
 
+MONTHS_ES = {
+    'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04',
+    'mayo': '05', 'junio': '06', 'julio': '07', 'agosto': '08',
+    'septiembre': '09', 'octubre': '10', 'noviembre': '11', 'diciembre': '12',
+}
+
+
+def parse_subtitle_date(subtitle):
+    """Extract a sortable date string (YYYY-MM-DD or YYYY) from a subtitle."""
+    s = subtitle.strip().strip('()')
+
+    # D-M-YYYY or DD-MM-YYYY (optionally followed by comma + text)
+    m = re.match(r'(\d{1,2})-(\d{1,2})-(\d{4})', s)
+    if m:
+        d, mo, y = m.group(1), m.group(2), m.group(3)
+        return f"{y}-{mo.zfill(2)}-{d.zfill(2)}"
+
+    # D/M/YYYY
+    m = re.match(r'(\d{1,2})/(\d{1,2})/(\d{4})', s)
+    if m:
+        d, mo, y = m.group(1), m.group(2), m.group(3)
+        return f"{y}-{mo.zfill(2)}-{d.zfill(2)}"
+
+    # Date range "D-D Mes de YYYY" — use first day
+    m = re.match(r'(\d{1,2})-\d{1,2}\s+(\w+)\s+de\s+(\d{4})', s, re.I)
+    if m:
+        d, mes, y = m.group(1), m.group(2).lower(), m.group(3)
+        mo = MONTHS_ES.get(mes)
+        if mo:
+            return f"{y}-{mo}-{d.zfill(2)}"
+
+    # "D de Mes de YYYY" or "D Mes de YYYY" (anywhere in string)
+    m = re.search(r'(\d{1,2})\s+(?:de\s+)?(\w+)\s+de\s+(\d{4})', s, re.I)
+    if m:
+        d, mes, y = m.group(1), m.group(2).lower(), m.group(3)
+        mo = MONTHS_ES.get(mes)
+        if mo:
+            return f"{y}-{mo}-{d.zfill(2)}"
+
+    # Just a year: extract from `"Album", YEAR`
+    m = re.search(r',\s*(\d{4})\s*$', s)
+    if m:
+        return m.group(1)
+
+    return ""
+
 
 def clean_text(text):
     """Remove backslash escapes from Pandoc-converted markdown."""
@@ -179,6 +225,10 @@ def parse_file(path):
     pub_date = ""
     if is_rockzone and re.match(r'^\d{4}-\d{2}-\d{2}$', subtitle.strip()):
         pub_date = subtitle.strip()
+
+    # For non-rockzone articles, extract date from subtitle
+    if not pub_date:
+        pub_date = parse_subtitle_date(subtitle)
 
     result = {
         "slug": slug,

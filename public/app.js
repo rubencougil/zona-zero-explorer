@@ -56,12 +56,7 @@ window.app = null;
 
   // ── Sorting ───────────────────────────────────────────
   function getSorted(filtered) {
-    if (currentType !== 'all' || searchQuery) return filtered;
-    // In "all" view: RockZone articles first (sorted by date desc), then the rest
-    const rz = filtered.filter(a => a.source === 'rockzone')
-      .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-    const rest = filtered.filter(a => a.source !== 'rockzone');
-    return [...rz, ...rest];
+    return [...filtered].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
   }
 
   // ── Rendering: counts ─────────────────────────────────
