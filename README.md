@@ -78,6 +78,8 @@ zona-zero-explorer/
 
 Cualquier push a `main` lanza automáticamente el deploy vía GitHub Actions.
 
+Además, el repositorio incluye un workflow programado que intenta importar novedades de RockZone cada día, genera `public/data.json` y hace push de los cambios a `main`. Para que ese push dispare el deploy de Pages, añade un secret del repositorio llamado `ROCKZONE_SYNC_TOKEN` con un token que tenga permiso de escritura sobre el repo.
+
 Para activar GitHub Pages en el repositorio:
 1. Ve a **Settings → Pages**
 2. En *Source*, selecciona **GitHub Actions**
