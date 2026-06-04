@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Zona Zero favicon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#141414" />
+      <stop offset="100%" stop-color="#080808" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#bg)" />
+  <rect x="7" y="7" width="50" height="50" rx="10" fill="none" stroke="#e63946" stroke-opacity="0.55" stroke-width="2" />
+  <circle cx="32" cy="32" r="20" fill="none" stroke="#2b2b2b" stroke-width="2.25" />
+  <path d="M21 19h23L21 45h23" fill="none" stroke="#ebebeb" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter" />
+  <path d="M21 19h23L21 45h23" fill="none" stroke="#e63946" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" opacity="0.9" />
+  <circle cx="44" cy="20" r="2" fill="#e63946" />
+</svg>
