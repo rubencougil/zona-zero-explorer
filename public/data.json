@@ -308,6 +308,7 @@
     "excerpt": "El cuarteto de alt-rock más ecléctico y camaleónico del Reino Unido regresa con su quinto álbum, _Nightmare Tripping_, posiblemente el disco más heavy y oscuro de toda su carrera. Este esperadísimo trabajo de Don Broco toma el relevo del notable _Amazing Things_ (2021) y marca…",
     "cover_url": "https://www.rockzonemag.com/wp-content/uploads/2026/03/Don-Broco-foto-critica-2026.jpg",
     "source": "rockzone",
+    "source_url": "https://www.rockzonemag.com/don-broco-nightmare-tripping-critica-nuevo-disco-review/",
     "date": "2026-03-27"
   },
   {
@@ -329,6 +330,7 @@
     "excerpt": "¡Sorpresa, sorpresa! Enter Shikari acaban de publicar, de forma totalmente inesperada y sin previo aviso, su octavo disco de estudio bajo el título _Lose Your Self_. Sin anuncios, sin adelantos ni singles, sin hype ni explicaciones, sin _teasers_, sin filtraciones y sin generar…",
     "cover_url": "https://www.rockzonemag.com/wp-content/uploads/2026/04/Enter-shikari-foto-critica-2026.jpg",
     "source": "rockzone",
+    "source_url": "https://www.rockzonemag.com/enter-shikari-lose-your-self-critica-disco-nuevo-review/",
     "date": "2026-04-11"
   },
   {
@@ -862,7 +864,7 @@
     "date": "2014"
   },
   {
-    "slug": "sök",
+    "slug": "sök",
     "title": "SÖK",
     "subtitle": "\"13 Mantracks\", 2006",
     "type": "reseña",
@@ -1062,7 +1064,7 @@
     "date": "2010"
   },
   {
-    "slug": "vórtice",
+    "slug": "vórtice",
     "title": "VÓRTICE",
     "subtitle": "1-1-2011",
     "type": "entrevista",

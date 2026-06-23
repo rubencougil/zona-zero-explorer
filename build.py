@@ -186,6 +186,12 @@ def parse_file(path):
     if cover_match:
         embedded_cover = cover_match.group(1)
 
+    # Extract original source URL when present (RockZone imports)
+    source_url = ""
+    source_match = re.search(r'<!--\s*source:\s*(https?://\S+)\s*-->', raw)
+    if source_match:
+        source_url = source_match.group(1)
+
     # Strip HTML comments before processing
     raw_clean = re.sub(r'<!--.*?-->', '', raw, flags=re.S)
 
@@ -252,6 +258,8 @@ def parse_file(path):
     }
     if is_rockzone:
         result["source"] = "rockzone"
+    if source_url:
+        result["source_url"] = source_url
     if pub_date:
         result["date"] = pub_date
     return result

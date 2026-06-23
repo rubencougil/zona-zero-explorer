@@ -4,7 +4,7 @@ window.app = null;
 (function () {
   'use strict';
 
-  const DATA_URL = 'data.json';
+  const DATA_URL = 'data.json?v=20260623';
 
   // ── State ────────────────────────────────────────────
   let articles = [];
@@ -134,6 +134,9 @@ window.app = null;
     const rzBadge = article.source === 'rockzone'
       ? '<span class="rz-badge">RockZone</span>'
       : '';
+    const sourceLink = article.source === 'rockzone' && article.source_url
+      ? `<a class="rz-source-link" href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir la reseña original en RockZone">Original ↗</a>`
+      : '';
 
     return `<article class="card card-${tc}" data-slug="${escapeHtml(article.slug)}" tabindex="0" role="button" aria-label="Leer ${escapeHtml(article.title)}">
   ${coverArtHTML(article)}
@@ -145,6 +148,7 @@ window.app = null;
     <p class="card-subtitle">${subtitleH}</p>
     <p class="card-excerpt">${excerptH}</p>
     <div class="card-footer">
+      ${sourceLink}
       <span class="card-cta">Leer &nbsp;→</span>
     </div>
   </div>
@@ -247,6 +251,11 @@ window.app = null;
         <span class="modal-type pill-${tc}">${tl}</span>
         <h1 class="modal-title" id="modal-title">${escapeHtml(article.title)}</h1>
         <p class="modal-subtitle">${escapeHtml(article.subtitle)}</p>
+        ${article.source === 'rockzone' && article.source_url ? `
+        <p class="modal-source">
+          <span class="modal-source-label">Fuente original:</span>
+          <a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener noreferrer">RockZone</a>
+        </p>` : ''}
       </div>
       <div class="modal-body">${bodyHtml}</div>
       <div class="modal-share">

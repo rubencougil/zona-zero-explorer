@@ -434,6 +434,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 0.75rem;
   border-top: 1px solid var(--border);
   margin-top: 0.85rem;
   padding: 0.55rem 0;
@@ -450,6 +451,25 @@ main {
 }
 
 .card:hover .card-cta { color: var(--text-dim); }
+
+.rz-source-link {
+  font-family: var(--font-ui);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(244, 162, 97, 0.28);
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.rz-source-link:hover {
+  color: var(--gold);
+  border-color: rgba(244, 162, 97, 0.6);
+  background: rgba(244, 162, 97, 0.08);
+}
 
 /* ─── No Results ─────────────────────────────────── */
 .no-results {
@@ -619,6 +639,27 @@ main {
   font-style: italic;
   color: var(--text-dim);
   line-height: 1.45;
+}
+
+.modal-source {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.modal-source a {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.modal-source a:hover {
+  color: var(--text);
 }
 
 /* Body */
