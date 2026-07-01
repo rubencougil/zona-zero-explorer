@@ -18,6 +18,7 @@ import os
 import sys
 import time
 import html as htmllib
+import unicodedata
 import urllib.request
 import urllib.parse
 from datetime import datetime
@@ -114,9 +115,14 @@ def parse_article(url):
     cover_url = cover_m.group(1) if cover_m else ""
 
     # ── Category / type ────────────────────────────────────────────────────
-    # Guess from URL slug
+    # Guess from URL slug and live-article metadata.
     slug_raw = url.rstrip("/").split("/")[-1]
-    if any(x in slug_raw for x in ["entrevista", "interview"]):
+    if re.match(r'^\s*cr[oó]nica\b', title, re.I) or \
+       re.search(r'/(cronica|cronicas|en-directo|directo|live|concierto)', url, re.I) or \
+       re.search(r'"Cr[oó]nica"|\'Cr[oó]nica\'', html_src, re.I) or \
+       re.search(r'"En Directo"|\'En Directo\'', html_src, re.I):
+        content_type = "crónica"
+    elif any(x in slug_raw for x in ["entrevista", "interview"]):
         content_type = "entrevista"
     elif any(x in slug_raw for x in ["cronica", "directo", "live", "concierto"]):
         content_type = "crónica"
@@ -124,12 +130,32 @@ def parse_article(url):
         content_type = "reseña"
 
     # ── Body content ───────────────────────────────────────────────────────
-    start = html_src.find("<!-- content -->")
-    end   = html_src.find("<!-- /content -->", start)
+    start = html_src.find('<div class="td-post-content')
     if start < 0:
         return None
 
-    block = html_src[start: end if end > start else start + 15000]
+    block = html_src[start:]
+    authored = bool(AUTHOR_SIG.search(block))
+    if not authored:
+        return None  # not by Rubén Cougil
+
+    # Trim everything from the author signature onward.
+    sig_m = re.search(r'<p>\s*<strong>\s*RUB[EÉ]N COUGIL\s*</strong>\s*</p>', block, re.I | re.S)
+    if sig_m:
+        block = block[:sig_m.start()]
+
+    end_markers = []
+    for marker in [
+        r'<div[^>]*class="[^"]*author-box[^"]*"',
+        r'<div[^>]*class="[^"]*td-tags[^"]*"',
+        r'<div[^>]*class="[^"]*td-block-related[^"]*"',
+        r'<div[^>]*class="[^"]*td-post-sharing[^"]*"',
+    ]:
+        m = re.search(marker, block, re.I | re.S)
+        if m:
+            end_markers.append(m.start())
+    if end_markers:
+        block = block[:min(end_markers)]
 
     # Remove noise blocks before converting
     block = re.sub(r"<script[^>]*>.*?</script>", "", block, flags=re.S)
@@ -141,15 +167,12 @@ def parse_article(url):
         block = re.sub(rf'<[^>]+class="[^"]*{cls}[^"]*".*', "", block, flags=re.S)
     block = re.sub(r'<div[^>]*class="[^"]*td-post-featured-image[^"]*".*?</div>', "", block, flags=re.S)
 
-    # Check authorship
-    if not AUTHOR_SIG.search(block):
-        return None  # not by Rubén Cougil
-
     # Convert to Markdown
     body_md = html_to_markdown(block)
 
     # ── Build slug for filename ────────────────────────────────────────────
-    clean_title = re.sub(r"[^\w\s-]", "", title.lower())
+    clean_title = unicodedata.normalize("NFKD", title.lower()).encode("ascii", "ignore").decode("ascii")
+    clean_title = re.sub(r"[^\w\s-]", "", clean_title)
     clean_title = re.sub(r"[\s_]+", "_", clean_title.strip())
     slug = f"rz_{clean_title[:60]}"
 

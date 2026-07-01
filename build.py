@@ -67,7 +67,7 @@ def clean_text(text):
     return text.replace('\\"', '"').replace("\\'", "'")
 
 
-def detect_type(subtitle, body):
+def detect_type(title, subtitle, body, source_url=""):
     """Classify content as reseña, crónica, or entrevista."""
     # Interviews have Q&A format with #### ¿ headings
     if "#### ¿" in body or re.search(r'####\s+¿', body):
@@ -76,6 +76,15 @@ def detect_type(subtitle, body):
     if re.match(r'^\(\d{1,2}-\d{1,2}-\d{4}\)$', subtitle.strip()):
         if re.search(r'entrevista|pregunta|respuesta|zona.zero', body.lower()):
             return "entrevista"
+    # Concert chronicles from RockZone often ship with ISO dates and live-specific
+    # metadata instead of the older "D-M-YYYY" subtitle format.
+    live_markers = (
+        source_url and re.search(r'/(cronica|cronicas|en-directo|directo|live|concierto)', source_url, re.I)
+    ) or re.match(r'^\s*cr[oó]nica\b', title, re.I) \
+      or re.search(r'\bFECHA:\b.*\bLUGAR:\b', body, re.I | re.S) \
+      or re.search(r'\bPROMOTOR:\b', body, re.I)
+    if live_markers:
+        return "crónica"
     # Album reviews: subtitle matches "Album Title", Year
     if re.search(r'"[^"]{2,}", \d{4}', subtitle) or re.search(r'"[^"]{2,}",\s*\d{4}', subtitle):
         return "reseña"
@@ -223,7 +232,7 @@ def parse_file(path):
             break
 
     body = "\n".join(lines[body_start:]).strip()
-    content_type = detect_type(subtitle, body)
+    content_type = detect_type(title, subtitle, body, source_url)
 
     # Clean excerpt: strip markdown syntax for preview text
     excerpt_clean = re.sub(r'\*{1,2}([^*]+)\*{1,2}', r'\1', body)
